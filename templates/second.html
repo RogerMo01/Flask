@@ -12,11 +12,19 @@
         This is Second Page
     </h1>
 
+    <input type="range" id="slider" oninput="moveSlider()" min="0" max="100">
+
     <button id="previousButton" onclick="goPreviousPage()">⏪Previous</button>
 
     <script>
         function goPreviousPage(){
             window.location.href = "/";
+        }
+
+        var slider = document.getElementById('slider');
+
+        function moveSlider(){
+            socket.emit('slider_moved', {value: slider.value})
         }
     </script>
 
@@ -28,6 +36,10 @@
             console.log('Page ' + pageTitle + ' is connected')
             socket.emit('server_connect', {data: pageTitle + ' is online now\n'})
         });
+        
+        // socket.on('move_slider', function(data) {
+        //     slider.value = slider.value = data['value'];
+        // });
 
     </script>
 

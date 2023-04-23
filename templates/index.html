@@ -12,11 +12,19 @@
         Home Page
     </h1>
 
+    <input type="range" id="slider" oninput="moveSlider()" min="0" max="100">
+
     <button id="nextButton" onclick="goNextPage()">Next⏩</button>
 
     <script>
         function goNextPage(){
-            window.location.href = "/second"
+            window.location.href = "/second";
+        }
+        
+        var slider = document.getElementById('slider');
+
+        function moveSlider(){
+            // socket.emit('slider_moved', {value: slider.value})
         }
     </script>
 
@@ -25,8 +33,14 @@
         var pageTitle = document.title;
 
         socket.on('connect', function() {
-            console.log('Page ' + pageTitle + ' is connected')
-            socket.emit('server_connect', {data: pageTitle + ' is online now\n'})
+            console.log('Page ' + pageTitle + ' is connected');
+            socket.emit('server_connect', {data: pageTitle + ' is online now\n'});
+            socket.emit('join_room', {room: 'stream_room'});
+        });
+
+        socket.on('move_slider', function(data) {
+            console.log('slider moved\n');
+            slider.value = data['value'];
         });
 
     </script>
