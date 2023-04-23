@@ -35,11 +35,13 @@
         socket.on('connect', function() {
             console.log('Page ' + pageTitle + ' is connected')
             socket.emit('server_connect', {data: pageTitle + ' is online now\n'})
+            socket.emit('join_room', {room: 'stream_room'});
         });
         
-        // socket.on('move_slider', function(data) {
-        //     slider.value = slider.value = data['value'];
-        // });
+        socket.on('move_slider', function(data) {
+            console.log('slider moved\n');
+            slider.value = data['value'];
+        });
 
     </script>
 

@@ -24,7 +24,7 @@
         var slider = document.getElementById('slider');
 
         function moveSlider(){
-            // socket.emit('slider_moved', {value: slider.value})
+            socket.emit('slider_moved', {value: slider.value})
         }
     </script>
 
