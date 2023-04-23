@@ -12,6 +12,8 @@
         Home Page
     </h1>
 
+    <video id="video" width="640" height="360" src="/static/videos/sample.mp4" type="video/mp4" controls></video>
+
     <input type="range" id="slider" oninput="moveSlider()" min="0" max="100">
 
     <button id="nextButton" onclick="goNextPage()">Next⏩</button>
@@ -21,11 +23,16 @@
             window.location.href = "/second";
         }
         
+        var video = document.getElementById('video');
         var slider = document.getElementById('slider');
 
         function moveSlider(){
             socket.emit('slider_moved', {value: slider.value})
         }
+
+        // slider.addEventListener("input", function(){
+        //     video.volume = slider.value/100;
+        // });
     </script>
 
     <script type="text/javascript" charset="utf-8">
@@ -41,6 +48,7 @@
         socket.on('move_slider', function(data) {
             console.log('slider moved\n');
             slider.value = data['value'];
+            video.volume = slider.value/100;
         });
 
     </script>
